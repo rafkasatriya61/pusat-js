@@ -3,7 +3,7 @@ const jadwalPiket = {
     1: [ // Senin
         { user: "hafni", pass: "afni si imut" },
         { user: "rafka", pass: "cantikku afni" },
-        { user: "petugas3", pass: "piket3" },
+        { user: "bintang", pass: "211110" },
         { user: "petugas4", pass: "piket4" },
         { user: "petugas5", pass: "piket5" }
     ],
