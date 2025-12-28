@@ -50,51 +50,71 @@ const jadwalPiket = {
     ]
 };
 
-const loginForm = document.getElementById('login-form');
-const reportForm = document.getElementById('report-form');
+// Database Wali Kelas (Key: Kelas-Jurusan)
+const databaseWali = {
+    "10-TKR": "628999810460", // Ibu Mulyana
+    "10-MP":  "628999809547", // Mis Monica
+    "10-TKJ": "628123456789", // Contoh lainnya
+    "11-TKR": "628123456789",
+    "11-TKJ": "628123456789",
+    "11-MP":  "628123456789",
+    "12-TKR": "628123456789",
+    "12-TKJ": "628123456789",
+    "12-MP":  "628123456789"
+};
 
-// Logika Login
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const inputUser = document.getElementById('username').value.toLowerCase();
-    const inputPass = document.getElementById('password').value;
-    
-    const hariIni = new Date().getDay(); 
-    const daftarPetugas = jadwalPiket[hariIni];
-
-    // Cari apakah ada username dan password yang cocok di dalam daftar hari ini
-    const userValid = daftarPetugas.find(p => p.user === inputUser && p.pass === inputPass);
-
-    if (userValid) {
-        document.getElementById('login-page').style.display = 'none';
-        document.getElementById('report-page').style.display = 'block';
-    } else {
-        alert("Login Gagal! Akun tidak terdaftar untuk hari ini atau password salah.");
-    }
-});
-
-// Fungsi Kirim ke WhatsApp
 reportForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Ganti dengan nomor WhatsApp kamu (awali dengan 62)
-    const noWhatsApp = "628999809547"; 
+    // 1. Ambil Data Form
+    const namaSiswa = document.getElementById('nama').value;
+    const kelasSiswa = document.querySelector('input[name="kelas"]:checked').value;
+    const jurusanSiswa = document.querySelector('input[name="jurusan"]:checked').value;
+    const petugasPiket = document.getElementById('username').value; // Ambil username yang sedang login
+
+    // 2. Ambil Pelanggaran (Checkbox)
+    let daftarPelanggaran = [];
+    document.querySelectorAll('input[name="pelanggaran"]:checked').forEach((item) => {
+        daftarPelanggaran.push(item.value);
+    });
+    const pelanggaranLain = document.getElementById('pelanggaran-lain').value;
+    if (pelanggaranLain) daftarPelanggaran.push(pelanggaranLain);
+
+    if (daftarPelanggaran.length === 0) {
+        alert("Pilih minimal satu jenis pelanggaran!");
+        return;
+    }
+
+    // 3. Tentukan Tujuan (Wali Kelas)
+    const kunciTujuan = `${kelasSiswa}-${jurusanSiswa}`;
+    const nomorWali = databaseWali[kunciTujuan];
+
+    if (!nomorWali) {
+        alert("Data nomor Wali Kelas belum terdaftar di sistem!");
+        return;
+    }
+
+    // 4. Susun Pesan untuk Bot
+    // Format: .lapor [NomorWali]|[IsiPesan]
+    const formatPesan = `*LAPORAN PIKET SISWA*%0A` +
+                      `--------------------------%0A` +
+                      `👤 *Nama:* ${namaSiswa}%0A` +
+                      `🏢 *Kelas:* ${kelasSiswa} ${jurusanSiswa}%0A` +
+                      `⚠️ *Pelanggaran:*%0A- ${daftarPelanggaran.join('%0A- ')}%0A` +
+                      `--------------------------%0A` +
+                      `👮 *Petugas:* ${petugasPiket}%0A` +
+                      `_Mohon untuk ditindaklanjuti._`;
+
+    const nomorBot = "628XXXXXXXXXX"; // ISI DENGAN NOMOR WHATSAPP BOT KAMU
     
-    const nama = document.getElementById('nama').value;
-    const kelas = document.getElementById('kelas').value;
-    const jurusan = document.getElementById('jurusan').value;
-    const pelanggaran = document.getElementById('pelanggaran').value;
+    // Gunakan perintah pemicu untuk Bot kamu
+    const urlWA = `https://api.whatsapp.com/send?phone=${nomorBot}&text=.lapor ${nomorWali}|${formatPesan}`;
 
-    const pesan = `*LAPORAN PIKET BARU*%0A` +
-                  `--------------------------%0A` +
-                  `👤 *Nama:* ${nama}%0A` +
-                  `🏢 *Kelas:* ${kelas}%0A` +
-                  `📚 *Jurusan:* ${jurusan}%0A` +
-                  `⚠️ *Pelanggaran:* ${pelanggaran}%0A` +
-                  `--------------------------%0A` +
-                  `_Dikirim via Sistem Web Laporan_`;
-
-    const urlWA = `https://api.whatsapp.com/send?phone=${noWhatsApp}&text=${pesan}`;
+    // 5. Eksekusi Kirim (Buka Tab Baru)
     window.open(urlWA, '_blank');
+
+    // 6. Reset Form agar Hafni bisa input siswa lain tanpa login ulang
+    reportForm.reset();
+    alert("Laporan untuk " + namaSiswa + " telah diteruskan ke Bot!");
 });
-            
+
