@@ -4,7 +4,9 @@ const dataPiket = {
     2: { user: "najla", pass: "selasa123" },
     3: { user: "amel",  pass: "rabu123" },
     4: { user: "shella", pass: "kamis123" },
-    5: { user: "nana",   pass: "jumat123" }
+    5: { user: "nana",   pass: "jumat123" },
+    6. { user: "umum",   pass: "umum123" },
+    7. { user: "umum2",   pass: "umum1234"}
 };
 
 const loginForm = document.getElementById('login-form');
