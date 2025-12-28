@@ -1,35 +1,35 @@
 // 1. DATA PETUGAS & LOGIN (0=Minggu, 1=Senin, dst)
 const jadwalPiket = {
     1: [ // Senin
-        { user: "hafni", pass: "hafni123" },
-        { user: "petugas2", pass: "piket2" },
+        { user: "hafni", pass: "afni si imut" },
+        { user: "rafka", pass: "cantikku afni" },
         { user: "petugas3", pass: "piket3" },
         { user: "petugas4", pass: "piket4" },
         { user: "petugas5", pass: "piket5" }
     ],
     2: [ // Selasa
-        { user: "najla", pass: "najla123" },
+        { user: "iis kholisoh", pass: "iskhls" },
         { user: "userB", pass: "passB" },
         { user: "userC", pass: "passC" },
         { user: "userD", pass: "passD" },
         { user: "userE", pass: "passE" }
     ],
     3: [ // Rabu
-        { user: "amel", pass: "amel123" },
-        { user: "userH", pass: "passH" },
+        { user: "dina", pass: "si geulis" },
+        { user: "-", pass: "-" },
         { user: "userI", pass: "passI" },
         { user: "userJ", pass: "passJ" },
-        { user: "userK", pass: "passK" }
+        { user: "hariri", pass: "hariri12345" }
     ],
     4: [ // Kamis
-        { user: "shella", pass: "shella123" },
-        { user: "userN", pass: "passN" },
+        { user: "mahardika", pass: "adalah pokoknya" },
+        { user: "risydah", pass: "risda 378" },
         { user: "userO", pass: "passO" },
         { user: "userP", pass: "passP" },
         { user: "userQ", pass: "passQ" }
     ],
     5: [ // Jumat
-        { user: "nana", pass: "nana123" },
+        { user: "amel", pass: "prikitiw" },
         { user: "userT", pass: "passT" },
         { user: "userU", pass: "passU" },
         { user: "userV", pass: "passV" },
@@ -41,15 +41,15 @@ const jadwalPiket = {
 
 // 2. DATABASE NOMOR WALI KELAS
 const databaseWali = {
-    "10-TKR": "628999810460", // Ibu Mulyana
-    "10-MP":  "628999809547", // Mis Monica
-    "10-TKJ": "6281234567890",
-    "11-TKR": "6281234567890",
-    "11-TKJ": "6281234567890",
-    "11-MP":  "6281234567890",
-    "12-TKR": "6281234567890",
-    "12-TKJ": "6281234567890",
-    "12-MP":  "6281234567890"
+    "10-TKR": "-", // Ibu Mulyana
+    "10-MP":  "-", // Mis Monica
+    "10-TKJ": "-",
+    "11-TKR": "-",
+    "11-TKJ": "-",
+    "11-MP":  "-",
+    "12-TKR": "-",
+    "12-TKJ": "-",
+    "12-MP":  "-"
 };
 
 const loginForm = document.getElementById('login-form');
