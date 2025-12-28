@@ -24,7 +24,7 @@ const jadwalPiket = {
     4: [ // Kamis
         { user: "mahardika", pass: "adalah pokoknya" },
         { user: "risydah", pass: "risda 378" },
-        { user: "userO", pass: "passO" },
+        { user: "ayu", pass: "220709" },
         { user: "userP", pass: "passP" },
         { user: "userQ", pass: "passQ" }
     ],
