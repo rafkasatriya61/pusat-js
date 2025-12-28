@@ -1,31 +1,75 @@
-// Data User berdasarkan Hari (1=Senin, 2=Selasa, dst)
-const dataPiket = {
-    1: { user: "hafni", pass: "senin123" },
-    2: { user: "najla", pass: "selasa123" },
-    3: { user: "amel",  pass: "rabu123" },
-    4: { user: "shella", pass: "kamis123" },
-    5: { user: "nana",   pass: "jumat123" },
-    6. { user: "umum",   pass: "umum123" },
-    7. { user: "umum2",   pass: "umum1234"}
+// Struktur Data: 0=Minggu, 1=Senin, 2=Selasa, 3=Rabu, 4=Kamis, 5=Jumat, 6=Sabtu
+const jadwalPiket = {
+    // SENIN
+    1: [
+        { user: "hafni", pass: "hafni123" },
+        { user: "petugas2", pass: "pass2" },
+        { user: "petugas3", pass: "pass3" },
+        { user: "petugas4", pass: "pass4" },
+        { user: "petugas5", pass: "pass5" }
+    ],
+    // SELASA
+    2: [
+        { user: "najla", pass: "najla123" },
+        { user: "userB", pass: "passB" },
+        { user: "userC", pass: "passC" },
+        { user: "userD", pass: "passD" },
+        { user: "userE", pass: "passE" }
+    ],
+    // RABU
+    3: [
+        { user: "amel", pass: "amel123" },
+        { user: "userH", pass: "passH" },
+        { user: "userI", pass: "passI" },
+        { user: "userJ", pass: "passJ" },
+        { user: "userK", pass: "passK" }
+    ],
+    // KAMIS
+    4: [
+        { user: "shella", pass: "shella123" },
+        { user: "userN", pass: "passN" },
+        { user: "userO", pass: "passO" },
+        { user: "userP", pass: "passP" },
+        { user: "userQ", pass: "passQ" }
+    ],
+    // JUMAT
+    5: [
+        { user: "nana", pass: "nana123" },
+        { user: "userT", pass: "passT" },
+        { user: "userU", pass: "passU" },
+        { user: "userV", pass: "passV" },
+        { user: "userW", pass: "passW" }
+    ],
+    // SABTU (Admin Only)
+    6: [
+        { user: "admin", pass: "admin123" }
+    ],
+    // MINGGU (Admin Only)
+    0: [
+        { user: "admin", pass: "admin123" }
+    ]
 };
 
 const loginForm = document.getElementById('login-form');
 const reportForm = document.getElementById('report-form');
 
-// Fungsi Cek Login
+// Logika Login
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const user = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
+    const inputUser = document.getElementById('username').value.toLowerCase();
+    const inputPass = document.getElementById('password').value;
     
-    const hariIni = new Date().getDay(); // Mendapatkan angka hari (0-6)
-    const petugas = dataPiket[hariIni];
+    const hariIni = new Date().getDay(); 
+    const daftarPetugas = jadwalPiket[hariIni];
 
-    if (petugas && user === petugas.user && pass === petugas.pass) {
+    // Cari apakah ada username dan password yang cocok di dalam daftar hari ini
+    const userValid = daftarPetugas.find(p => p.user === inputUser && p.pass === inputPass);
+
+    if (userValid) {
         document.getElementById('login-page').style.display = 'none';
         document.getElementById('report-page').style.display = 'block';
     } else {
-        alert("Maaf, login gagal! Pastikan Username benar dan sesuai dengan jadwal hari ini.");
+        alert("Login Gagal! Akun tidak terdaftar untuk hari ini atau password salah.");
     }
 });
 
@@ -33,7 +77,9 @@ loginForm.addEventListener('submit', (e) => {
 reportForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const noWhatsApp = "628999809547"; // GANTI DENGAN NOMOR WHATSAPP KAMU (Awali dengan 62)
+    // Ganti dengan nomor WhatsApp kamu (awali dengan 62)
+    const noWhatsApp = "628999809547"; 
+    
     const nama = document.getElementById('nama').value;
     const kelas = document.getElementById('kelas').value;
     const jurusan = document.getElementById('jurusan').value;
@@ -46,9 +92,9 @@ reportForm.addEventListener('submit', (e) => {
                   `📚 *Jurusan:* ${jurusan}%0A` +
                   `⚠️ *Pelanggaran:* ${pelanggaran}%0A` +
                   `--------------------------%0A` +
-                  `_Dikirim otomatis via Sistem Laporan_`;
+                  `_Dikirim via Sistem Web Laporan_`;
 
     const urlWA = `https://api.whatsapp.com/send?phone=${noWhatsApp}&text=${pesan}`;
-    
     window.open(urlWA, '_blank');
 });
+            
