@@ -40,26 +40,81 @@ const jadwalPiket = {
     0: [{ user: "admin", pass: "adminminggu"}]  // Minggu
 };
 
-// 2. DATABASE NOMOR WALI KELAS
+// --- 2. DATABASE NOMOR WALI KELAS ---
 const databaseWali = {
-    "10-TKR": "-", // Ibu Mulyana
-    "10-MP":  "-", // Mis Monica
-    "10-TKJ": "-",
-    "11-TKR": "-",
-    "11-TKJ": "-",
-    "11-MP":  "-",
-    "12-TKR": "-",
-    "12-TKJ": "-",
-    "12-MP":  "-"
+    "10-TKR": "628xxx", 
+    "10-MP":  "628xxx", 
+    "10-TKJ": "628xxx",
+    "11-TKR": "628xxx",
+    "11-TKJ": "628xxx",
+    "11-MP":  "628xxx",
+    "12-TKR": "628xxx",
+    "12-TKJ": "628xxx",
+    "12-MP":  "628xxx"
 };
 
-const loginForm = document.getElementById('login-form');
-const reportForm = document.getElementById('report-form');
+// Nomor Bot WA Kamu
+const nomorBotWA = "628999810354"; 
+const nomorAdmin = "628999809547"
 
-// 3. LOGIKA LOGIN
+// --- 3. FUNGSI NOTIFIKASI POPUP ---
+function showNotification(success, message) {
+    const notif = document.getElementById('notification');
+    const msg = document.getElementById('notif-message');
+    const icon = document.getElementById('notif-icon');
+    const waErrorBtn = document.getElementById('wa-error-btn');
+
+    notif.style.background = success ? "#25D366" : "#ff4444";
+    icon.textContent = success ? "✅" : "❌";
+    msg.textContent = message;
+    
+    notif.classList.add('show');
+    
+    // Munculkan tombol lapor WA jika pengiriman ke Sheets gagal
+    if (!success && message.includes("Gagal")) {
+        if(waErrorBtn) waErrorBtn.style.display = "block";
+    } else {
+        if(waErrorBtn) waErrorBtn.style.display = "none";
+    }
+
+    setTimeout(() => { notif.classList.remove('show'); }, 4000);
+}
+
+// --- 4. FITUR MATA PASSWORD ---
+const eyeIcon = document.getElementById('eye-icon');
+const passwordInput = document.getElementById('password');
+
+if (eyeIcon) {
+    eyeIcon.addEventListener('click', () => {
+        const isPass = passwordInput.type === 'password';
+        passwordInput.type = isPass ? 'text' : 'password';
+        eyeIcon.textContent = isPass ? '🙈' : '👁️';
+    });
+}
+
+// --- 5. FUNGSI LUPA PASSWORD (AMBIL DATA DARI JADWAL) ---
+const btnLupaPass = document.getElementById('btn-lupa-pass');
+if (btnLupaPass) {
+    btnLupaPass.addEventListener('click', () => {
+        const hariIni = new Date().getDay();
+        const namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+        const petugasHariIni = jadwalPiket[hariIni];
+        
+        let teksData = `.lupapassword (nama petugas)`;
+        petugasHariIni.forEach(p => {
+            teksData += `- User: ${p.user} | Pass: ${p.pass}\n`;
+        });
+
+        const urlWA = `https://wa.me/${nomorBotWA}?text=${encodeURIComponent(teksData)}`;
+        window.open(urlWA, '_blank');
+    });
+}
+
+// --- 6. LOGIKA LOGIN ---
+const loginForm = document.getElementById('login-form');
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const inputUser = document.getElementById('username').value.toLowerCase();
+    const inputUser = document.getElementById('username').value.toLowerCase().trim();
     const inputPass = document.getElementById('password').value;
     
     const hariIni = new Date().getDay(); 
@@ -70,43 +125,40 @@ loginForm.addEventListener('submit', (e) => {
     if (userValid) {
         document.getElementById('login-page').style.display = 'none';
         document.getElementById('report-page').style.display = 'block';
+        showNotification(true, `Selamat datang, ${inputUser}!`);
     } else {
-        alert("Login Gagal! Username tidak sesuai jadwal hari ini atau password salah.");
+        showNotification(false, "Login Gagal! Username tidak sesuai jadwal atau password salah.");
     }
 });
 
-// 4. FUNGSI KIRIM DATA KE GOOGLE SHEETS
+// --- 7. KIRIM DATA KE GOOGLE SHEETS ---
+const reportForm = document.getElementById('report-form');
 reportForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Ambil data dasar
     const namaSiswa = document.getElementById('nama').value;
     const kelasSiswa = document.querySelector('input[name="kelas"]:checked').value;
     const jurusanSiswa = document.querySelector('input[name="jurusan"]:checked').value;
     const petugasPiket = document.getElementById('username').value;
 
-    // Ambil data pelanggaran (checkbox)
     let daftarPelanggaran = [];
     document.querySelectorAll('input[name="pelanggaran"]:checked').forEach((item) => {
         daftarPelanggaran.push(item.value);
     });
     
     const pelanggaranLain = document.getElementById('pelanggaran-lain').value;
-    if (pelanggaranLain) {
-        daftarPelanggaran.push(pelanggaranLain);
-    }
+    if (pelanggaranLain) daftarPelanggaran.push(pelanggaranLain);
 
     if (daftarPelanggaran.length === 0) {
-        alert("Pilih minimal satu jenis pelanggaran!");
+        showNotification(false, "Pilih minimal satu jenis pelanggaran!");
         return;
     }
 
-    // Tentukan nomor Wali Kelas
     const kunciTujuan = `${kelasSiswa}-${jurusanSiswa}`;
-    const nomorWali = databaseWali[kunciTujuan] || "6281234567890";
+    const nomorWali = databaseWali[kunciTujuan] || "-";
 
-    // Siapkan Payload (Data untuk dikirim ke Apps Script)
     const payload = {
+        tanggal: new Date().toLocaleString('id-ID'),
         siswa: namaSiswa,
         kelas: kelasSiswa,
         jurusan: jurusanSiswa,
@@ -115,14 +167,12 @@ reportForm.addEventListener('submit', async (e) => {
         nomorWali: nomorWali
     };
 
-    // Animasi Loading Tombol
-    const btnSubmit = e.target.querySelector('button[type="submit"]');
+    const btnSubmit = document.getElementById('btn-submit');
     const originalText = btnSubmit.innerText;
-    btnSubmit.innerText = "⏳ Sedang Mengirim...";
+    btnSubmit.innerText = "⏳ Mengirim...";
     btnSubmit.disabled = true;
 
     try {
-        // LINK WEB APP KAMU
         const scriptURL = 'https://script.google.com/macros/s/AKfycbz2RMoHkS85ABrcTRRCcOfLnHVvnpxMAyLQpVeyHk4F1YgFIPFpzEB_4cIHfhVgXBuc/exec';
 
         await fetch(scriptURL, {
@@ -130,16 +180,19 @@ reportForm.addEventListener('submit', async (e) => {
             body: JSON.stringify(payload)
         });
 
-        alert(`✅ Laporan untuk ${namaSiswa} berhasil disimpan ke Google Sheets!`);
-        
-        // Reset form & hapus centang checkbox setelah sukses
+        showNotification(true, `Berhasil! Laporan ${namaSiswa} sudah disimpan.`);
         reportForm.reset();
     } catch (error) {
+        showNotification(false, "Gagal mengirim data ke sistem.");
         console.error('Error!', error.message);
-        alert("❌ Gagal mengirim data. Pastikan koneksi internet stabil.");
     } finally {
         btnSubmit.innerText = originalText;
         btnSubmit.disabled = false;
     }
 });
 
+// Fungsi Lapor WA jika error kirim
+function laporWA() {
+    const pesan = encodeURIComponent("Data piket ERROR, Benerin cepetan");
+    window.open(`https://wa.me/${nomorAdmin}?text=${pesan}`, '_blank');
+}
