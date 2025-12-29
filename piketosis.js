@@ -25,7 +25,7 @@ const jadwalPiket = {
         { user: "mahardika", pass: "adalah pokoknya" },
         { user: "risydah", pass: "risda 378" },
         { user: "ayu", pass: "220709" },
-        { user: "userP", pass: "passP" },
+        { user: "kiky", pass: "kynvm" },
         { user: "userQ", pass: "passQ" }
     ],
     5: [ // Jumat
@@ -35,8 +35,8 @@ const jadwalPiket = {
         { user: "userV", pass: "passV" },
         { user: "userW", pass: "passW" }
     ],
-    6: [{ user: "admin", pass: "admin123" }], // Sabtu
-    0: [{ user: "admin", pass: "admin123" }]  // Minggu
+    6: [{ user: "admin", pass: "adminsabtu" }], // Sabtu
+    0: [{ user: "admin", pass: "adminminggu"}]  // Minggu
 };
 
 // 2. DATABASE NOMOR WALI KELAS
