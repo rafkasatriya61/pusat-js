@@ -12,14 +12,14 @@ const jadwalPiket = {
         { user: "iis kholisoh", pass: "iskhls" },
         { user: "aqlima", pass: "aqlima.ai0214" },
         { user: "daffa", pass: "322751" },
-        { user: "userD", pass: "passD" },
+        { user: "sri mulyati", pass: "piket th" },
         { user: "userE", pass: "passE" }
     ],
     3: [ // Rabu
         { user: "dina", pass: "si geulis" },
         { user: "yenigeulis140610", pass: "yenigeulis140610" },
         { user: "najla", pass: "enggalupa" },
-        { user: "userJ", pass: "passJ" },
+        { user: "arya", pass: "dragoknighthunterz" },
         { user: "hariri", pass: "hariri12345" }
     ],
     4: [ // Kamis
@@ -27,7 +27,7 @@ const jadwalPiket = {
         { user: "risydah", pass: "risda 378" },
         { user: "ayu", pass: "220709" },
         { user: "kiky", pass: "kynvm" },
-        { user: "userQ", pass: "passQ" }
+        { user: "afriza", pass: "kepoo nihh" }
     ],
     5: [ // Jumat
         { user: "amel", pass: "prikitiw" },
