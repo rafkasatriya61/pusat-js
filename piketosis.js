@@ -4,20 +4,21 @@ const jadwalPiket = {
         { user: "hafni", pass: "afni si imut" },
         { user: "rafka", pass: "cantikku afni" },
         { user: "bintang", pass: "211110" },
-        { user: "petugas4", pass: "piket4" },
-        { user: "petugas5", pass: "piket5" }
+        { user: "niyya", pass: "husniyyah01" },
+        { user: "siti khoirun nisa", pass: "nisa1210" },
+        { user: "shella", pass:"123"}
     ],
     2: [ // Selasa
         { user: "iis kholisoh", pass: "iskhls" },
-        { user: "userB", pass: "passB" },
-        { user: "userC", pass: "passC" },
+        { user: "aqlima", pass: "aqlima.ai0214" },
+        { user: "daffa", pass: "322751" },
         { user: "userD", pass: "passD" },
         { user: "userE", pass: "passE" }
     ],
     3: [ // Rabu
         { user: "dina", pass: "si geulis" },
-        { user: "-", pass: "-" },
-        { user: "userI", pass: "passI" },
+        { user: "yenigeulis140610", pass: "yenigeulis140610" },
+        { user: "najla", pass: "enggalupa" },
         { user: "userJ", pass: "passJ" },
         { user: "hariri", pass: "hariri12345" }
     ],
@@ -30,7 +31,7 @@ const jadwalPiket = {
     ],
     5: [ // Jumat
         { user: "amel", pass: "prikitiw" },
-        { user: "userT", pass: "passT" },
+        { user: "missdini", pass: "rayymiss02" },
         { user: "userU", pass: "passU" },
         { user: "userV", pass: "passV" },
         { user: "userW", pass: "passW" }
