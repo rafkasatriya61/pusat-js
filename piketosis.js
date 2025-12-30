@@ -100,12 +100,12 @@ if (btnLupaPass) {
         const namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
         const petugasHariIni = jadwalPiket[hariIni];
         
-        let teksData = `.lupapassword (nama petugas)`;
+        const teksPesan = `.lupapassword (nama petugas)`;
         petugasHariIni.forEach(p => {
             teksData += `- User: ${p.user} | Pass: ${p.pass}\n`;
         });
 
-        const urlWA = `https://wa.me/${nomorBotWA}?text=${encodeURIComponent(teksData)}`;
+        const urlWA = `https://wa.me/${nomorBotWA}?text=${teksPesan}`;
         window.open(urlWA, '_blank');
     });
 }
