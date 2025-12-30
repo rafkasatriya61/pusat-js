@@ -92,24 +92,6 @@ if (eyeIcon) {
     });
 }
 
-// --- 5. FUNGSI LUPA PASSWORD (AMBIL DATA DARI JADWAL) ---
-const btnLupaPass = document.getElementById('btn-lupa-pass');
-if (btnLupaPass) {
-    btnLupaPass.addEventListener('click', () => {
-        const hariIni = new Date().getDay();
-        const namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-        const petugasHariIni = jadwalPiket[hariIni];
-        
-        const teksPesan = `.lupapassword (nama petugas)`;
-        petugasHariIni.forEach(p => {
-            teksData += `- User: ${p.user} | Pass: ${p.pass}\n`;
-        });
-
-        const urlWA = `https://wa.me/${nomorBotWA}?text=${teksPesan}`;
-        window.open(urlWA, '_blank');
-    });
-}
-
 // --- 6. LOGIKA LOGIN ---
 const loginForm = document.getElementById('login-form');
 loginForm.addEventListener('submit', (e) => {
