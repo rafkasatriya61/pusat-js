@@ -191,8 +191,25 @@ reportForm.addEventListener('submit', async (e) => {
     }
 });
 
-// Fungsi Lapor WA jika error kirim
-function laporWA() {
-    const pesan = encodeURIComponent("Data piket ERROR, Benerin cepetan");
-    window.open(`https://wa.me/${nomorAdmin}?text=${pesan}`, '_blank');
+// --- LOGIKA TOMBOL LUPA PASSWORD ---
+const btnLupaPass = document.getElementById('btn-lupa-pass');
+const inputUser = document.getElementById('username');
+
+if (btnLupaPass) {
+    btnLupaPass.addEventListener('click', () => {
+        const namaInput = inputUser.value.trim();
+        let pesan;
+
+        if (namaInput === "") {
+            // JIKA USERNAME KOSONG
+            pesan = ".lupapassword ubah ke nama";
+        } else {
+            // JIKA USERNAME SUDAH TERISI
+            pesan = `.lupapassword ${namaInput}`;
+        }
+
+        // Membuat link WhatsApp dan membukanya
+        const linkWA = `https://wa.me/${nomorBotWA}?text=${encodeURIComponent(pesan)}`;
+        window.open(linkWA, '_blank');
+    });
 }
