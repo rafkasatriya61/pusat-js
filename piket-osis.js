@@ -6,35 +6,37 @@ const jadwalPiket = {
         { user: "bintang", pass: "211110" },
         { user: "niyya", pass: "husniyyah01" },
         { user: "siti khoirun nisa", pass: "nisa1210" },
-        { user: "shella", pass:"123"}
+        { user: "shella", pass: "123"},
+        { user: "admin", pass: "adminsenin"}
     ],
     2: [ // Selasa
         { user: "iis kholisoh", pass: "iskhls" },
         { user: "aqlima", pass: "aqlima.ai0214" },
         { user: "daffa", pass: "322751" },
         { user: "sri mulyati", pass: "piket th" },
-        { user: "userE", pass: "passE" }
+        { user: "admin", pass: "adminselasa" }
     ],
     3: [ // Rabu
         { user: "dina", pass: "si geulis" },
         { user: "yenigeulis140610", pass: "yenigeulis140610" },
         { user: "najla", pass: "enggalupa" },
         { user: "arya", pass: "dragoknighthunterz" },
-        { user: "hariri", pass: "hariri12345" }
+        { user: "hariri", pass: "hariri12345" },
+        { user: "admin", pass: "adminrabu"}
     ],
     4: [ // Kamis
         { user: "mahardika", pass: "adalah pokoknya" },
         { user: "risydah", pass: "risda 378" },
         { user: "ayu", pass: "220709" },
         { user: "kiky", pass: "kynvm" },
-        { user: "afriza", pass: "kepoo nihh" }
+        { user: "afriza", pass: "kepoo nihh" },
+        { user: "syahfira indah kirana", pass: "kirana2608"},
+        { user: "admin", pass: "adminkamis"}
     ],
     5: [ // Jumat
-        { user: "amel", pass: "prikitiw" },
+        { user: "amel", pass: "prikitiw"},
         { user: "missdini", pass: "rayymiss02" },
-        { user: "userU", pass: "passU" },
-        { user: "userV", pass: "passV" },
-        { user: "userW", pass: "passW" }
+        { user: "admin", pass: "adminjumat"}
     ],
     6: [{ user: "admin", pass: "adminsabtu" }], // Sabtu
     0: [{ user: "admin", pass: "adminminggu"}]  // Minggu
@@ -54,7 +56,7 @@ const databaseWali = {
 };
 
 // Nomor Bot WA Kamu
-const nomorBotWA = "628999810354"; 
+const nomorBotWA = "628999810460"; 
 const nomorAdmin = "628999809547"
 
 // --- 3. FUNGSI NOTIFIKASI POPUP ---
