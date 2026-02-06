@@ -1,3 +1,4 @@
+
 // 1. DATA PETUGAS & LOGIN (0=Minggu, 1=Senin, dst)
 const jadwalPiket = {
     1: [ // Senin
@@ -36,6 +37,7 @@ const jadwalPiket = {
     5: [ // Jumat
         { user: "amel", pass: "prikitiw"},
         { user: "missdini", pass: "rayymiss02" },
+        { user: "zan", pass: "ganteng dong"},
         { user: "admin", pass: "adminjumat"}
     ],
     6: [{ user: "admin", pass: "adminsabtu" }], // Sabtu
